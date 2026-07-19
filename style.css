@@ -83,6 +83,7 @@ button { font: inherit; -webkit-tap-highlight-color: transparent; }
 .media-background, .photo-layer, .photo-fallback, .photo-shade, .photo-grain { position: absolute; inset: 0; width: 100%; height: 100%; }
 .media-background { overflow: hidden; background: #080707; }
 .photo-layer {
+  z-index: 1;
   background-size: cover; background-position: center center; background-repeat: no-repeat;
   opacity: 0; transform: scale(1.06);
   filter: blur(2.5px) brightness(0.58) saturate(0.88);
@@ -92,14 +93,16 @@ button { font: inherit; -webkit-tap-highlight-color: transparent; }
 }
 .photo-layer.is-visible { opacity: 1; }
 @keyframes kenBurns { from { transform: scale(1.06) translate3d(0,0,0); } to { transform: scale(1.11) translate3d(0,-0.8%,0); } }
-.photo-fallback { background: radial-gradient(circle at 50% 35%, rgba(255,255,255,0.04), transparent 35%), linear-gradient(180deg, #111, #050505); }
+.photo-fallback { z-index: 0; background: radial-gradient(circle at 50% 35%, rgba(255,255,255,0.04), transparent 35%), linear-gradient(180deg, #111, #050505); }
 .photo-shade {
+  z-index: 2;
   background:
     radial-gradient(circle at 50% 50%, rgba(0,0,0,0.26), transparent 32%),
     linear-gradient(180deg, rgba(0,0,0,0.48), rgba(0,0,0,0.58) 55%, rgba(0,0,0,0.66)),
     radial-gradient(circle at 50% 50%, rgba(0,0,0,0.08), rgba(0,0,0,0.58) 90%);
 }
 .photo-grain {
+  z-index: 3;
   opacity: 0.11; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
 }
