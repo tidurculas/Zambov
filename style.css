@@ -150,10 +150,32 @@ button { font: inherit; -webkit-tap-highlight-color: transparent; }
   position: absolute; inset: 0; display: grid; place-items: center; font-size: clamp(4rem, 11vw, 7rem); line-height: 1; letter-spacing: -0.06em; opacity: 0.94;
   text-shadow: 0 10px 32px rgba(0,0,0,0.35);
 }
-.eight-number { animation: rotateEight 5.2s ease-in-out infinite; }
-.infinity-number { animation: rotateInfinity 5.2s ease-in-out infinite; }
-@keyframes rotateEight { 0%, 35% { opacity: 1; transform: rotate(0deg) scale(1); } 48%, 100% { opacity: 0; transform: rotate(90deg) scale(0.82); } }
-@keyframes rotateInfinity { 0%, 40% { opacity: 0; transform: rotate(-90deg) scale(0.82); } 55%, 100% { opacity: 1; transform: rotate(0deg) scale(1); } }
+.eight-number,
+.infinity-number {
+  transition:
+    opacity 1050ms var(--ease-apple),
+    transform 1250ms var(--ease-apple);
+}
+
+.eight-number {
+  opacity: 1 !important;
+  transform: rotate(0deg) scale(1);
+}
+
+.infinity-number {
+  opacity: 0 !important;
+  transform: rotate(-90deg) scale(0.82);
+}
+
+.eight-slide.is-infinity .eight-number {
+  opacity: 0 !important;
+  transform: rotate(90deg) scale(0.82);
+}
+
+.eight-slide.is-infinity .infinity-number {
+  opacity: 1 !important;
+  transform: rotate(0deg) scale(1);
+}
 .color-slide { gap: 10px; }
 .petal-row { display: flex; gap: 14px; margin-bottom: 2px; opacity: 0; transform: translateY(16px); filter: blur(6px); }
 .poem-slide.is-active .petal-row { animation: revealLine 760ms var(--ease-apple) forwards; animation-delay: 70ms; }
@@ -164,6 +186,33 @@ button { font: inherit; -webkit-tap-highlight-color: transparent; }
 .blue-slide .petal-row i { background: var(--blue); }
 .final-slide p:first-child { font-size: clamp(1.8rem, 5vw, 4.05rem); }
 .final-slide .signature { font-size: clamp(1rem, 2.2vw, 1.35rem); color: rgba(244,240,233,0.72); letter-spacing: -0.01em; }
+
+.final-slide .afterthought {
+  position: absolute;
+  left: 50%;
+  bottom: max(54px, calc(env(safe-area-inset-bottom) + 34px));
+  width: min(90vw, 620px);
+  margin: 0;
+  color: rgba(244, 240, 233, 0.58);
+  font-size: clamp(0.82rem, 2vw, 1rem);
+  font-weight: 430;
+  letter-spacing: -0.01em;
+  opacity: 0 !important;
+  transform: translate(-50%, 8px) !important;
+  filter: blur(4px) !important;
+  animation: none !important;
+  transition:
+    opacity 1100ms var(--ease-apple),
+    transform 1100ms var(--ease-apple),
+    filter 1100ms var(--ease-apple);
+}
+
+.final-slide.show-afterthought .afterthought {
+  opacity: 1 !important;
+  transform: translate(-50%, 0) !important;
+  filter: blur(0) !important;
+}
+
 .audio-control {
   position: fixed; z-index: 70; top: max(18px, calc(env(safe-area-inset-top) + 10px)); right: max(18px, calc(env(safe-area-inset-right) + 10px));
   width: 44px; height: 44px; border: 0; border-radius: 999px; background: rgba(10,10,10,0.36); backdrop-filter: blur(14px); box-shadow: 0 10px 26px rgba(0,0,0,0.14); cursor: pointer;

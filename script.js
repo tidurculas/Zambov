@@ -50,6 +50,8 @@
   const photoBack = document.getElementById("photoBack");
   const photoFront = document.getElementById("photoFront");
   const statusToast = document.getElementById("statusToast");
+  const eightSlide = document.querySelector(".eight-slide");
+  const finalSlide = document.querySelector(".final-slide");
 
   let introIndex = 0;
   let poemIndex = 0;
@@ -66,6 +68,10 @@
   let freezeRequested = false;
   let finalLocked = false;
   let finalUiTimer = null;
+  let eightTransformTimer = null;
+  let afterthoughtTimer = null;
+  let afterthoughtRemainingMs = 180000;
+  let afterthoughtVisibleStartedAt = null;
 
   function splitWords() {
     document.querySelectorAll('[data-reveal="words"] p').forEach((paragraph) => {
@@ -117,11 +123,61 @@
     if (announce) introSlides[introIndex].setAttribute("aria-live", "polite");
   }
 
+  function resetEight() {
+    window.clearTimeout(eightTransformTimer);
+    eightSlide.classList.remove("is-infinity");
+  }
+
+  function playEightTransition() {
+    resetEight();
+    eightTransformTimer = window.setTimeout(() => {
+      eightSlide.classList.add("is-infinity");
+    }, 750);
+  }
+
+  function clearAfterthoughtTimer(reset = false) {
+    window.clearTimeout(afterthoughtTimer);
+    afterthoughtTimer = null;
+    afterthoughtVisibleStartedAt = null;
+
+    if (reset) {
+      afterthoughtRemainingMs = 180000;
+      finalSlide.classList.remove("show-afterthought");
+    }
+  }
+
+  function showAfterthought() {
+    clearAfterthoughtTimer(false);
+    afterthoughtRemainingMs = 0;
+    finalSlide.classList.add("show-afterthought");
+  }
+
+  function scheduleAfterthought() {
+    if (!finalLocked || finalSlide.classList.contains("show-afterthought")) return;
+    if (document.hidden) return;
+
+    window.clearTimeout(afterthoughtTimer);
+    afterthoughtVisibleStartedAt = performance.now();
+    afterthoughtTimer = window.setTimeout(showAfterthought, afterthoughtRemainingMs);
+  }
+
+  function pauseAfterthoughtCountdown() {
+    if (!afterthoughtTimer || afterthoughtVisibleStartedAt === null) return;
+
+    const elapsed = performance.now() - afterthoughtVisibleStartedAt;
+    afterthoughtRemainingMs = Math.max(0, afterthoughtRemainingMs - elapsed);
+    window.clearTimeout(afterthoughtTimer);
+    afterthoughtTimer = null;
+    afterthoughtVisibleStartedAt = null;
+  }
+
   function maybeFreezeAtFinal(index) {
     const isFinal = index === poemSlides.length - 1;
     if (!isFinal) return;
     finalLocked = true;
     freezeRequested = true;
+    clearAfterthoughtTimer(true);
+    scheduleAfterthought();
     clearTimeout(photoTimer);
     if (!photoTransitioning) {
       stopSlideshow();
@@ -133,7 +189,16 @@
   }
 
   function updatePoem(index) {
+    const previousPoemIndex = poemIndex;
     poemIndex = Math.max(0, Math.min(index, poemSlides.length - 1));
+
+    const eightIndex = poemSlides.indexOf(eightSlide);
+    if (poemIndex === eightIndex && previousPoemIndex !== eightIndex) {
+      playEightTransition();
+    } else if (poemIndex !== eightIndex && previousPoemIndex === eightIndex) {
+      resetEight();
+    }
+
     updateSlides(poemSlides, poemIndex);
     poemProgress.style.width = `${((poemIndex + 1) / poemSlides.length) * 100}%`;
     poemCounter.textContent = `${String(poemIndex + 1).padStart(2, "0")} / ${String(poemSlides.length).padStart(2, "0")}`;
@@ -338,9 +403,17 @@
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
       clearTimeout(photoTimer);
+      pauseAfterthoughtCountdown();
       if (!audio.paused) audio.pause();
-    } else if (mode === "poem" && !finalLocked) {
+      return;
+    }
+
+    if (mode === "poem" && !finalLocked) {
       scheduleNextPhoto(900);
+    }
+
+    if (finalLocked && afterthoughtRemainingMs > 0) {
+      scheduleAfterthought();
     }
   });
 })();
