@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050505" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="description" content="A private poem for Kania." />
+  <title>Zambov</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app" id="app">
+    <section class="intro-deck" id="introDeck" aria-label="Introduction">
+      <div class="intro-slide is-active" data-slide data-reveal="words">
+        <p>Hi.</p>
+      </div>
+
+      <div class="intro-slide" data-slide data-reveal="words">
+        <p>Kania.</p>
+      </div>
+
+      <div class="intro-slide" data-slide data-reveal="words">
+        <p class="intro-secondary">The Zambov girl.</p>
+      </div>
+
+      <div class="intro-slide" data-slide data-reveal="words">
+        <p>This day has finally come.</p>
+      </div>
+
+      <div class="intro-slide" data-slide data-reveal="words">
+        <p>The work has finally paid off.</p>
+      </div>
+
+      <div class="intro-slide" data-slide data-reveal="words">
+        <p class="intro-long">All the long nights, revisions, and doubts have finally brought you here.</p>
+      </div>
+
+      <div class="intro-slide" data-slide data-reveal="words">
+        <p class="intro-long">I know your mind may still feel a little crowded.</p>
+      </div>
+
+      <div class="intro-slide" data-slide data-reveal="words">
+        <p class="intro-long">So before the next chapter begins,</p>
+      </div>
+
+      <div class="intro-slide" data-slide data-reveal="words">
+        <p>let the world grow quiet for a moment.</p>
+      </div>
+
+      <div class="intro-slide" data-slide data-reveal="words">
+        <p>I made something for you.</p>
+      </div>
+
+      <div class="intro-slide intro-ready" data-slide data-reveal="words">
+        <p>Are you ready?</p>
+        <button class="start-button" id="startButton" type="button">Start</button>
+      </div>
+
+      <button class="intro-hit-area intro-back" id="introBack" type="button" aria-label="Previous introduction slide"></button>
+      <button class="intro-hit-area intro-next" id="introNext" type="button" aria-label="Next introduction slide"></button>
+
+      <div class="intro-hint" id="introHint">Tap to continue</div>
+      <div class="intro-progress" aria-hidden="true"><span id="introProgress"></span></div>
+    </section>
+
+    <section class="poem-experience" id="poemExperience" aria-label="Poem" aria-hidden="true">
+      <div class="media-background" aria-hidden="true">
+        <video class="video video-back" id="videoBack" muted loop playsinline preload="auto">
+          <source src="assets/video.mp4" type="video/mp4" />
+        </video>
+        <video class="video video-front" id="videoFront" muted loop playsinline preload="auto">
+          <source src="assets/video.mp4" type="video/mp4" />
+        </video>
+        <div class="video-fallback"></div>
+        <div class="video-shade"></div>
+        <div class="video-grain"></div>
+      </div>
+
+      <audio id="audio" loop preload="auto">
+        <source src="assets/audio.mp3" type="audio/mpeg" />
+      </audio>
+
+      <div class="poem-deck" id="poemDeck">
+        <article class="poem-slide is-active" data-poem-slide data-reveal="lines">
+          <p>May these flowers never blossom.</p>
+          <p>May these roses never dance with the wind.</p>
+        </article>
+
+        <article class="poem-slide" data-poem-slide data-reveal="lines">
+          <p>Not because you do not deserve fresh flowers, my dear.</p>
+          <p>For you are worthy of every garden in spring.</p>
+        </article>
+
+        <article class="poem-slide" data-poem-slide data-reveal="lines">
+          <p>But take these as the first flowers I give to you,</p>
+          <p>so neither time nor season may take them away.</p>
+        </article>
+
+        <article class="poem-slide" data-poem-slide data-reveal="lines">
+          <p class="eyebrow">On this day,</p>
+          <p>you have earned your laurels.</p>
+        </article>
+
+        <article class="poem-slide" data-poem-slide data-reveal="lines">
+          <p>To others, this day may pass like the wind,</p>
+          <p>noticed for a moment, then gone.</p>
+        </article>
+
+        <article class="poem-slide" data-poem-slide data-reveal="lines">
+          <p>But for you, Kania,</p>
+          <p>it closes a long chapter of weary nights</p>
+          <p>and opens the first page of what comes next.</p>
+        </article>
+
+        <article class="poem-slide" data-poem-slide data-reveal="lines">
+          <p>I will remember it</p>
+          <p>as the day I placed my first flowers in your hands.</p>
+        </article>
+
+        <article class="poem-slide eight-slide" data-poem-slide data-reveal="lines">
+          <p class="eyebrow">Eight they are.</p>
+          <div class="eight-mark" aria-label="Eight becoming infinity">
+            <span class="eight-number">8</span>
+            <span class="infinity-number">∞</span>
+          </div>
+          <p>For when eight rests upon its side,</p>
+          <p>it becomes forever.</p>
+        </article>
+
+        <article class="poem-slide color-slide red-slide" data-poem-slide data-reveal="lines">
+          <div class="petal-row" aria-hidden="true"><i></i><i></i><i></i></div>
+          <p class="eyebrow">Three in red.</p>
+          <p>For yesterday that brought me to you,</p>
+          <p>for today that lets me stay,</p>
+          <p>and for tomorrow,</p>
+          <p>which I still hope to meet beside you.</p>
+        </article>
+
+        <article class="poem-slide color-slide pink-slide" data-poem-slide data-reveal="lines">
+          <div class="petal-row" aria-hidden="true"><i></i><i></i></div>
+          <p class="eyebrow">Two in pink.</p>
+          <p>One for you, and one for me.</p>
+          <p>Two souls walking together</p>
+          <p>without losing who they are.</p>
+        </article>
+
+        <article class="poem-slide color-slide white-slide" data-poem-slide data-reveal="lines">
+          <div class="petal-row" aria-hidden="true"><i></i><i></i></div>
+          <p class="eyebrow">Two in white.</p>
+          <p>One for the truths we choose to speak,</p>
+          <p>and one for the faults</p>
+          <p>we choose to forgive.</p>
+        </article>
+
+        <article class="poem-slide color-slide blue-slide" data-poem-slide data-reveal="lines">
+          <div class="petal-row" aria-hidden="true"><i></i></div>
+          <p class="eyebrow">One in blue.</p>
+          <p>For the one thing between us</p>
+          <p>I still cannot name.</p>
+          <p>Too strange to be chance,</p>
+          <p>too dear to be ordinary.</p>
+        </article>
+
+        <article class="poem-slide" data-poem-slide data-reveal="lines">
+          <p>So let them never bloom,</p>
+          <p>that they may never fade.</p>
+        </article>
+
+        <article class="poem-slide" data-poem-slide data-reveal="lines">
+          <p>And if the years are kind to us,</p>
+          <p>may these quiet roses remember</p>
+          <p>that once, in this brief life,</p>
+          <p>I chose forever</p>
+          <p>over a single spring.</p>
+        </article>
+
+        <article class="poem-slide" data-poem-slide data-reveal="lines">
+          <p>If you have reached the end,</p>
+          <p>look beside you.</p>
+        </article>
+
+        <article class="poem-slide final-slide" data-poem-slide data-reveal="lines">
+          <p>The roses are still there.</p>
+          <p class="signature">— Gab</p>
+        </article>
+      </div>
+
+      <button class="poem-hit-area poem-back" id="poemBack" type="button" aria-label="Previous poem slide"></button>
+      <button class="poem-hit-area poem-next" id="poemNext" type="button" aria-label="Next poem slide"></button>
+
+      <button class="audio-control" id="audioControl" type="button" aria-label="Pause music" aria-pressed="false">
+        <span class="audio-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </button>
+
+      <div class="poem-progress" aria-hidden="true"><span id="poemProgress"></span></div>
+      <div class="poem-counter" id="poemCounter" aria-hidden="true"></div>
+    </section>
+
+    <div class="status-toast" id="statusToast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
