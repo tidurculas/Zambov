@@ -8,6 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="description" content="A private poem for Kania." />
   <title>Zambov</title>
+  <link rel="preload" as="image" href="assets/final-bouquet.png" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -66,8 +67,13 @@
         <article class="poem-slide" data-poem-slide data-reveal="lines"><p>And if the years are kind to us,</p><p>may these quiet roses remember</p><p>that once, in this brief life,</p><p>I chose forever</p><p>over a single spring.</p></article>
         <article class="poem-slide" data-poem-slide data-reveal="lines"><p>If you have reached the end,</p><p>look beside you.</p></article>
         <article class="poem-slide final-slide" data-poem-slide data-reveal="lines">
-          <p>The roses are still there.</p>
-          <p class="signature">— Gab</p>
+          <div class="final-bouquet" aria-hidden="true">
+            <img src="assets/final-bouquet.png" alt="" />
+          </div>
+          <div class="final-copy">
+            <p>The roses are still there.</p>
+            <p class="signature">— Gab</p>
+          </div>
           <p class="afterthought">what are you still doing here? :)</p>
         </article>
       </div>

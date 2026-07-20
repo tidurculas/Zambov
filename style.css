@@ -184,8 +184,94 @@ button { font: inherit; -webkit-tap-highlight-color: transparent; }
 .pink-slide .petal-row i { background: var(--pink); }
 .white-slide .petal-row i { background: var(--white); }
 .blue-slide .petal-row i { background: var(--blue); }
-.final-slide p:first-child { font-size: clamp(1.8rem, 5vw, 4.05rem); }
-.final-slide .signature { font-size: clamp(1rem, 2.2vw, 1.35rem); color: rgba(244,240,233,0.72); letter-spacing: -0.01em; }
+.final-slide {
+  padding: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: #050303;
+}
+
+.final-slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 50% 46%, rgba(166, 53, 61, 0.18), transparent 34%),
+    linear-gradient(180deg, rgba(2, 2, 2, 0.82), rgba(4, 2, 2, 0.9));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  opacity: 0;
+  transition: opacity 1200ms var(--ease-apple);
+}
+
+.final-slide.is-active::before {
+  opacity: 1;
+}
+
+.final-bouquet {
+  position: absolute;
+  z-index: 1;
+  inset: max(24px, env(safe-area-inset-top)) 0 max(74px, env(safe-area-inset-bottom));
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(24px) scale(0.94);
+  filter: blur(9px);
+  transition:
+    opacity 1500ms var(--ease-apple) 120ms,
+    transform 2100ms var(--ease-apple) 120ms,
+    filter 1500ms var(--ease-apple) 120ms;
+}
+
+.final-slide.is-active .final-bouquet {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.final-bouquet img {
+  display: block;
+  width: min(88vw, 610px);
+  max-width: 100%;
+  max-height: 82dvh;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 28px 42px rgba(0, 0, 0, 0.62))
+    drop-shadow(0 0 38px rgba(169, 53, 61, 0.16));
+  animation: finalBouquetFloat 8s ease-in-out infinite alternate;
+}
+
+@keyframes finalBouquetFloat {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(0, -8px, 0) scale(1.012); }
+}
+
+.final-copy {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: max(112px, calc(env(safe-area-inset-bottom) + 84px));
+  width: min(92vw, 900px);
+  transform: translateX(-50%);
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 42px 18px 8px;
+  background: linear-gradient(180deg, transparent, rgba(2, 2, 2, 0.52) 48%, rgba(2, 2, 2, 0.74));
+  border-radius: 28px;
+}
+
+.final-copy p:first-child {
+  font-size: clamp(1.8rem, 5vw, 4.05rem);
+}
+
+.final-slide .signature {
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  color: rgba(244,240,233,0.72);
+  letter-spacing: -0.01em;
+}
 
 .final-slide .afterthought {
   position: absolute;
@@ -264,7 +350,29 @@ button { font: inherit; -webkit-tap-highlight-color: transparent; }
   .poem-slide p { font-size: clamp(1.3rem, 6vw, 1.9rem); line-height: 1.22; }
   .poem-slide .eyebrow { font-size: 0.7rem; }
 }
+
+@media (max-width: 640px) {
+  .final-bouquet {
+    inset: max(20px, env(safe-area-inset-top)) -5vw max(62px, env(safe-area-inset-bottom));
+  }
+
+  .final-bouquet img {
+    width: 104vw;
+    max-height: 88dvh;
+  }
+
+  .final-copy {
+    bottom: max(96px, calc(env(safe-area-inset-bottom) + 72px));
+    width: min(94vw, 560px);
+    padding-top: 36px;
+  }
+
+  .final-copy p:first-child {
+    font-size: clamp(1.65rem, 8vw, 2.45rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
-  .word, .poem-slide p, .petal-row { opacity: 1; transform: none; filter: none; }
+  .word, .poem-slide p, .petal-row, .final-bouquet { opacity: 1; transform: none; filter: none; }
 }
